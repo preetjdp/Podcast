@@ -5,6 +5,7 @@ import 'package:Podcast/ui/homePage.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +21,7 @@ class PodcastApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DevicePreview(
-      enabled: true,
+      enabled: kDebugMode,
       builder: (a) => MultiProvider(
         providers: [
           Provider.value(value: player),
