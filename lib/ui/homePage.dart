@@ -20,24 +20,27 @@ class HomePage extends StatelessWidget {
               : CustomScrollView(
                   physics: BouncingScrollPhysics(),
                   slivers: [
-                    SliverToBoxAdapter(
-                      child: Text(
-                        "Featured",
-                        style: Theme.of(context).textTheme.headline4,
+                    // SliverToBoxAdapter(
+                    //   child: Text(
+                    //     "Featured",
+                    //     style: Theme.of(context).textTheme.headline4,
+                    //   ),
+                    // ),
+                    SliverPadding(
+                      padding: EdgeInsets.only(bottom: 15),
+                      sliver: SliverToBoxAdapter(
+                        child: EpisodeWidget(
+                          size: EpisodeWidgetSize.LARGE,
+                          episode: episodes.first,
+                        ),
                       ),
                     ),
-                    SliverToBoxAdapter(
-                      child: EpisodeWidget(
-                        size: EpisodeWidgetSize.LARGE,
-                        episode: episodes.first,
-                      ),
-                    ),
-                    SliverToBoxAdapter(
-                      child: Text(
-                        "For You",
-                        style: Theme.of(context).textTheme.headline4,
-                      ),
-                    ),
+                    // SliverToBoxAdapter(
+                    //   child: Text(
+                    //     "For You",
+                    //     style: Theme.of(context).textTheme.headline4,
+                    //   ),
+                    // ),
                     SliverList(
                         delegate: SliverChildBuilderDelegate(
                             (BuildContext context, int index) {
