@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:Podcast/resources/extension.dart';
 import 'package:basics/basics.dart';
-import 'package:rxdart/rxdart.dart';
 
 enum EpisodeWidgetSize { LARGE, REGULAR, SMALL }
 
@@ -19,10 +18,23 @@ class EpisodeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AssetsAudioPlayer player = context.watch<AssetsAudioPlayer>();
+    bool isEpisodePlaying() {
+      Playing playing = player.current.value;
+      if (playing.isNull) {
+        return false;
+      }
+
+      return playing.audio.audio.episode == episode;
+    }
+
     void _onPressed() async {
-      await player.stop();
-      await player.open(episode.audio, showNotification: true);
-      await player.play();
+      if (isEpisodePlaying()) {
+        await player.playOrPause();
+      } else {
+        await player.stop();
+        await player.open(episode.audio, showNotification: true);
+        await player.play();
+      }
     }
 
     return CupertinoButton(
@@ -46,8 +58,9 @@ class EpisodeWidget extends StatelessWidget {
                           color: PodDesign().podGrey2.withOpacity(0.05),
                           spreadRadius: 0.1)
                     ]),
-                child: player.builderCurrent(
-                    builder: (BuildContext context, Playing playing) {
+                child: player.builderRealtimePlayingInfos(builder:
+                    (BuildContext context, RealtimePlayingInfos realTimeInfo) {
+                  Playing playing = realTimeInfo?.current ?? null;
                   return Stack(
                     fit: StackFit.expand,
                     alignment: Alignment.center,
@@ -62,7 +75,9 @@ class EpisodeWidget extends StatelessWidget {
                           ),
                           child: Center(
                             child: Icon(
-                              CupertinoIcons.pause_solid,
+                              realTimeInfo.isPlaying
+                                  ? CupertinoIcons.pause_solid
+                                  : CupertinoIcons.play_arrow_solid,
                               color: Colors.white,
                             ),
                           ),
