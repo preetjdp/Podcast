@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PodDesign {
-  double fontSizeH1 = 100;
-  double fontSizeH2 = 80;
-  double fontSizeH3 = 46;
-  double fontSizeH4 = 36;
-  double fontSizeH5 = 18;
-  double fontSizeH6 = 14;
-  double fontSizeH7 = 12;
+  double size1 = 100;
+  double size2 = 80;
+  double size3 = 46;
+  double size4 = 36;
+  double size5 = 18;
+  double size6 = 14;
+  double size7 = 12;
 
   Color podWhite1 = Colors.white;
   Color podWhite2 = Color.fromRGBO(247, 247, 247, 1);
@@ -30,43 +30,43 @@ ThemeData podTheme() {
           CupertinoThemeData(primaryColor: podDesign.podGrey1),
       textTheme: TextTheme(
         headline1: TextStyle(
-            fontSize: podDesign.fontSizeH1,
+            fontSize: podDesign.size1,
             fontWeight: FontWeight.bold,
             color: podDesign.podGrey2),
         headline2: TextStyle(
-            fontSize: podDesign.fontSizeH2,
+            fontSize: podDesign.size2,
             fontWeight: FontWeight.bold,
             color: podDesign.podGrey2),
         headline3: TextStyle(
-            fontSize: podDesign.fontSizeH3,
+            fontSize: podDesign.size3,
             fontWeight: FontWeight.bold,
             color: podDesign.podGrey2),
         headline4: TextStyle(
-            fontSize: podDesign.fontSizeH4,
+            fontSize: podDesign.size4,
             fontWeight: FontWeight.bold,
             color: podDesign.podGrey2),
         headline5: TextStyle(
-            fontSize: podDesign.fontSizeH5,
+            fontSize: podDesign.size5,
             fontWeight: FontWeight.w600,
             color: podDesign.podGrey2),
         headline6: TextStyle(
-            fontSize: podDesign.fontSizeH6,
+            fontSize: podDesign.size6,
             fontWeight: FontWeight.bold,
             color: podDesign.podGrey2),
         subtitle1: TextStyle(
-            fontSize: podDesign.fontSizeH6,
+            fontSize: podDesign.size6,
             fontWeight: FontWeight.w600,
             color: podDesign.podGrey2),
         subtitle2: TextStyle(
-            fontSize: podDesign.fontSizeH7,
+            fontSize: podDesign.size7,
             fontWeight: FontWeight.bold,
             color: podDesign.podGrey2),
         bodyText1: TextStyle(
-            fontSize: podDesign.fontSizeH5,
+            fontSize: podDesign.size5,
             fontWeight: FontWeight.normal,
             color: podDesign.podGrey2),
         bodyText2: TextStyle(
-            fontSize: podDesign.fontSizeH6,
+            fontSize: podDesign.size6,
             fontWeight: FontWeight.normal,
             color: podDesign.podGrey2),
       ));

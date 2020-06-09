@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:Podcast/resources/extension.dart';
 import 'package:basics/basics.dart';
+import 'package:Podcast/resources/extension.dart';
 
 enum EpisodeWidgetSize { LARGE, REGULAR, SMALL }
 
@@ -71,7 +72,7 @@ class EpisodeWidget extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(podDesign.podRadius),
                             color:
-                                Theme.of(context).accentColor.withOpacity(0.7),
+                                Theme.of(context).accentColor.withOpacity(0.6),
                           ),
                           child: Center(
                             child: Icon(
@@ -79,6 +80,7 @@ class EpisodeWidget extends StatelessWidget {
                                   ? CupertinoIcons.pause_solid
                                   : CupertinoIcons.play_arrow_solid,
                               color: Colors.white,
+                              size: context.podDesign.size4,
                             ),
                           ),
                         )
