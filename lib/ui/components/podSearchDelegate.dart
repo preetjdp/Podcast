@@ -50,8 +50,24 @@ class PodSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Center(
-      child: Text("Start Typing"),
+    return FutureBuilder(
+      future: databaseService.getEpisodes(queryParameter: query),
+      builder: (BuildContext context, AsyncSnapshot<List<Episode>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting)
+          return Center(
+            child: PodSpinner(),
+          );
+        return ListView.builder(
+            itemCount: snapshot.data.length,
+            physics: BouncingScrollPhysics(),
+            padding: EdgeInsets.all(15),
+            itemBuilder: (BuildContext context, int index) {
+              Episode episode = snapshot.data.elementAt(index);
+              return Padding(
+                  padding: EdgeInsets.only(bottom: 15),
+                  child: EpisodeWidget(episode: episode));
+            });
+      },
     );
   }
 }
