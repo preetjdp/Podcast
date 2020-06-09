@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:Podcast/resources/extension.dart';
 import 'package:basics/basics.dart';
 import 'package:Podcast/resources/extension.dart';
+import 'package:Podcast/ui/abstractions/podImagePlaceHolder.dart';
 
 enum EpisodeWidgetSize { LARGE, REGULAR, SMALL }
 
@@ -52,8 +53,6 @@ class EpisodeWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(podDesign.podRadius),
-                    image:
-                        DecorationImage(image: NetworkImage(episode.thumbnail)),
                     boxShadow: [
                       BoxShadow(
                           blurRadius: 15,
@@ -67,6 +66,10 @@ class EpisodeWidget extends StatelessWidget {
                     fit: StackFit.expand,
                     alignment: Alignment.center,
                     children: [
+                      ClipRRect(
+                          borderRadius: BorderRadius.all(podDesign.podRadius),
+                          child: PodImagePlaceholder.network(
+                              url: episode.thumbnail)),
                       if (playing.isNotNull &&
                           episode == playing.audio.audio.episode)
                         Container(
