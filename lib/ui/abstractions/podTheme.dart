@@ -8,11 +8,13 @@ class PodDesign {
   double fontSizeH4 = 36;
   double fontSizeH5 = 18;
   double fontSizeH6 = 14;
+  double fontSizeH7 = 12;
 
-  Color podWhite = Color.fromRGBO(241, 245, 249, 1);
-  Color podGrey1 = Color.fromRGBO(28, 35, 52, 1);
+  Color podWhite1 = Colors.white;
+  Color podWhite2 = Color.fromRGBO(247, 247, 247, 1);
+  Color podGrey1 = Color.fromRGBO(22, 18, 36, 1);
   //Color podGrey1 = Color.fromRGBO(52, 59, 70, 1);
-  Color podGrey2 = Color.fromRGBO(78, 80, 88, 1);
+  Color podGrey2 = Color.fromRGBO(28, 35, 52, 1);
 
   Radius podRadius = Radius.circular(8);
 }
@@ -21,8 +23,8 @@ ThemeData podTheme() {
   PodDesign podDesign = PodDesign();
   return ThemeData(
       fontFamily: "Aileron",
-      scaffoldBackgroundColor: podDesign.podWhite,
-      backgroundColor: podDesign.podWhite,
+      scaffoldBackgroundColor: podDesign.podWhite1,
+      backgroundColor: podDesign.podWhite1,
       accentColor: podDesign.podGrey1,
       cupertinoOverrideTheme:
           CupertinoThemeData(primaryColor: podDesign.podGrey1),
@@ -45,26 +47,26 @@ ThemeData podTheme() {
             color: podDesign.podGrey2),
         headline5: TextStyle(
             fontSize: podDesign.fontSizeH5,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w600,
             color: podDesign.podGrey2),
         headline6: TextStyle(
             fontSize: podDesign.fontSizeH6,
             fontWeight: FontWeight.bold,
             color: podDesign.podGrey2),
         subtitle1: TextStyle(
-            fontSize: 14,
+            fontSize: podDesign.fontSizeH6,
             fontWeight: FontWeight.bold,
             color: podDesign.podGrey2),
         subtitle2: TextStyle(
-            fontSize: 12,
+            fontSize: podDesign.fontSizeH7,
             fontWeight: FontWeight.bold,
             color: podDesign.podGrey2),
         bodyText1: TextStyle(
-            fontSize: 28,
+            fontSize: podDesign.fontSizeH5,
             fontWeight: FontWeight.normal,
             color: podDesign.podGrey2),
         bodyText2: TextStyle(
-            fontSize: 14,
+            fontSize: podDesign.fontSizeH6,
             fontWeight: FontWeight.normal,
             color: podDesign.podGrey2),
       ));

@@ -97,7 +97,7 @@ class SearchBar extends StatelessWidget {
         cursorRadius: PodDesign().podRadius,
         cursorColor: PodDesign().podGrey1,
         decoration: BoxDecoration(
-            color: Colors.white,
+            color: PodDesign().podWhite2,
             borderRadius: BorderRadius.all(PodDesign().podRadius)),
         suffix: Container(
             height: 30,

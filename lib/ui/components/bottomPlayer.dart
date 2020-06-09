@@ -1,5 +1,6 @@
 import 'package:Podcast/main.dart';
 import 'package:Podcast/ui/abstractions/podSpinner.dart';
+import 'package:Podcast/ui/abstractions/podTheme.dart';
 import 'package:Podcast/ui/components/podSearchDelegate.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,7 +14,7 @@ class BottomPlayer extends StatelessWidget {
   Widget build(BuildContext context) {
     final AssetsAudioPlayer player = context.watch<AssetsAudioPlayer>();
     return Container(
-        color: Colors.white,
+        color: PodDesign().podWhite2,
         height: 80,
         child: player.builderRealtimePlayingInfos(
             builder: (BuildContext context, RealtimePlayingInfos realTimeInfo) {
