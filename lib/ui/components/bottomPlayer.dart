@@ -30,6 +30,15 @@ class BottomPlayer extends StatelessWidget {
           SizedBox(
             width: 15,
           ),
+          Expanded(child: player.builderCurrent(
+              builder: (BuildContext context, Playing playing) {
+            if (playing.isNotNull)
+              return Text(playing.audio.audio.episode.title);
+            return Text("Select a Podcast");
+          })),
+          SizedBox(
+            width: 15,
+          ),
           CupertinoButton(
               color: Theme.of(context).accentColor,
               borderRadius: BorderRadius.circular(50),
@@ -45,40 +54,8 @@ class BottomPlayer extends StatelessWidget {
           SizedBox(
             width: 15,
           ),
-          CupertinoButton(
-              color: Theme.of(context).accentColor,
-              borderRadius: BorderRadius.circular(50),
-              minSize: 20,
-              padding: EdgeInsets.all(10),
-              child: player.builderIsPlaying(
-                  builder: (BuildContext context, bool isPlaying) {
-                return Icon(CupertinoIcons.search);
-              }),
-              onPressed: () {
-                showSearch(context: context, delegate: PodSearchDelegate());
-              })
         ],
       ),
     );
-    return Container(
-        color: Colors.white,
-        height: 80,
-        child: Center(
-            child: Container(
-          height: 50,
-          width: 50,
-          child: CupertinoButton(
-              color: Theme.of(context).accentColor,
-              borderRadius: BorderRadius.circular(50),
-              minSize: 20,
-              padding: EdgeInsets.all(10),
-              child: player.builderIsPlaying(
-                  builder: (BuildContext context, bool isPlaying) {
-                return isPlaying
-                    ? Icon(CupertinoIcons.pause)
-                    : Icon(CupertinoIcons.play_arrow);
-              }),
-              onPressed: player.playOrPause),
-        )));
   }
 }
