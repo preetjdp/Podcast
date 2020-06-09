@@ -42,6 +42,7 @@ class EpisodeWidget extends StatelessWidget {
       onPressed: _onPressed,
       minSize: 0,
       padding: EdgeInsets.all(0),
+      //TODO This might cause perf issues.
       child: IntrinsicHeight(
         child: Row(
           children: [
@@ -56,7 +57,7 @@ class EpisodeWidget extends StatelessWidget {
                     boxShadow: [
                       BoxShadow(
                           blurRadius: 15,
-                          color: PodDesign().podGrey2.withOpacity(0.05),
+                          color: podDesign.podGrey2.withOpacity(0.05),
                           spreadRadius: 0.1)
                     ]),
                 child: player.builderRealtimePlayingInfos(builder:
@@ -105,7 +106,7 @@ class EpisodeWidget extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyText2,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis),
-                  Text("${episode.simplerDate} 30 mins",
+                  Text("${episode.simplerDate} ${episode.length ~/ 60} mins",
                       style: Theme.of(context).textTheme.subtitle2)
                 ],
               ),

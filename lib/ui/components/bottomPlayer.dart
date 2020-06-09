@@ -14,7 +14,7 @@ class BottomPlayer extends StatelessWidget {
   Widget build(BuildContext context) {
     final AssetsAudioPlayer player = context.watch<AssetsAudioPlayer>();
     return Container(
-        color: PodDesign().podWhite2,
+        color: context.podDesign.podWhite2,
         height: 80,
         child: player.builderRealtimePlayingInfos(
             builder: (BuildContext context, RealtimePlayingInfos realTimeInfo) {
