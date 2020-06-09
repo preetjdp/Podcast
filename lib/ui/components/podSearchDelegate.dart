@@ -36,6 +36,7 @@ class PodSearchDelegate extends SearchDelegate {
           );
         return ListView.builder(
             itemCount: snapshot.data.length,
+            physics: BouncingScrollPhysics(),
             padding: EdgeInsets.all(15),
             itemBuilder: (BuildContext context, int index) {
               Episode episode = snapshot.data.elementAt(index);
