@@ -1,5 +1,6 @@
 import 'package:Podcast/main.dart';
 import 'package:Podcast/ui/abstractions/podSpinner.dart';
+import 'package:Podcast/ui/abstractions/podTheme.dart';
 import 'package:Podcast/ui/components/podSearchDelegate.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,15 +14,15 @@ class BottomPlayer extends StatelessWidget {
   Widget build(BuildContext context) {
     final AssetsAudioPlayer player = context.watch<AssetsAudioPlayer>();
     return Container(
-        color: Colors.white,
+        color: context.podDesign.podWhite2,
         height: 80,
         child: player.builderRealtimePlayingInfos(
             builder: (BuildContext context, RealtimePlayingInfos realTimeInfo) {
           // print(realTimeInfo.toString());
           if (realTimeInfo.isNull)
             return Center(
-              child: Text("Start By Selecting a Podcast"),
-            );
+                child: Text("Start By Selecting a Podcast",
+                    style: Theme.of(context).textTheme.subtitle1));
           return Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -38,7 +39,8 @@ class BottomPlayer extends StatelessWidget {
               Expanded(
                   child: !realTimeInfo.isBuffering &&
                           realTimeInfo.current.isNotNull
-                      ? Text(realTimeInfo.current.audio.audio.episode.title)
+                      ? Text(realTimeInfo.current.audio.audio.episode.title,
+                          style: Theme.of(context).textTheme.subtitle1)
                       : Center(
                           child: PodSpinner(),
                         )),

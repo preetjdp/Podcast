@@ -1,14 +1,13 @@
 import 'package:Podcast/resources/episodeNotifer.dart';
 import 'package:Podcast/resources/models/episode.dart';
 import 'package:Podcast/ui/abstractions/podSpinner.dart';
-import 'package:Podcast/ui/abstractions/podTheme.dart';
 import 'package:Podcast/ui/components/bottomPlayer.dart';
 import 'package:Podcast/ui/components/episodeWidget.dart';
 import 'package:Podcast/ui/components/podSearchDelegate.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:basics/basics.dart';
+import 'package:Podcast/resources/extension.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -77,7 +76,6 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void _onSubmitted(String a) {
-      print("TESTING");
       showSearch(context: context, delegate: PodSearchDelegate(), query: a);
     }
 
@@ -86,19 +84,16 @@ class SearchBar extends StatelessWidget {
       sliver: SliverToBoxAdapter(
           child: CupertinoTextField(
         onSubmitted: _onSubmitted,
-        onChanged: (a) {
-          print(a);
-        },
         autocorrect: false,
-        placeholder: "Search For Podcasts here",
+        placeholder: "Search for Podcasts here ...",
+        placeholderStyle: TextStyle(color: context.podDesign.podGrey2),
         textInputAction: TextInputAction.search,
         padding: EdgeInsets.all(15),
-        clearButtonMode: OverlayVisibilityMode.always,
-        cursorRadius: PodDesign().podRadius,
-        cursorColor: PodDesign().podGrey1,
+        cursorRadius: context.podDesign.podRadius,
+        cursorColor: context.podDesign.podGrey1,
         decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(PodDesign().podRadius)),
+            color: context.podDesign.podWhite2,
+            borderRadius: BorderRadius.all(context.podDesign.podRadius)),
         suffix: Container(
             height: 30,
             width: 30,
@@ -110,7 +105,7 @@ class SearchBar extends StatelessWidget {
             child: Icon(
               CupertinoIcons.search,
               color: Colors.white,
-              size: 15,
+              size: context.podDesign.size5,
             )),
       )),
     );
