@@ -21,8 +21,8 @@ class BottomPlayer extends StatelessWidget {
           // print(realTimeInfo.toString());
           if (realTimeInfo.isNull)
             return Center(
-              child: Text("Start By Selecting a Podcast"),
-            );
+                child: Text("Start By Selecting a Podcast",
+                    style: Theme.of(context).textTheme.subtitle1));
           return Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -39,7 +39,8 @@ class BottomPlayer extends StatelessWidget {
               Expanded(
                   child: !realTimeInfo.isBuffering &&
                           realTimeInfo.current.isNotNull
-                      ? Text(realTimeInfo.current.audio.audio.episode.title)
+                      ? Text(realTimeInfo.current.audio.audio.episode.title,
+                          style: Theme.of(context).textTheme.subtitle1)
                       : Center(
                           child: PodSpinner(),
                         )),
