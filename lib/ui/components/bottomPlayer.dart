@@ -33,6 +33,10 @@ class BottomPlayer extends StatelessWidget {
                       ? Image.network(
                           realTimeInfo.current.audio.audio.episode.thumbnail)
                       : Container()),
+              CustomPaint(
+                painter: DurationPainter(context,
+                    value: realTimeInfo.playingPercent),
+              ),
               SizedBox(
                 width: 15,
               ),
@@ -63,4 +67,29 @@ class BottomPlayer extends StatelessWidget {
           );
         }));
   }
+}
+
+class DurationPainter extends CustomPainter {
+  final double value;
+  final BuildContext context;
+  double maxWidth;
+  DurationPainter(this.context, {@required this.value}) : assert(value >= 0) {
+    maxWidth = MediaQuery.of(context).size.width - 80;
+  }
+  static double _strokeWidth = 2;
+  static double _startPosition = -40 + _strokeWidth / 2;
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = context.podDesign.podGrey1
+      ..strokeWidth = _strokeWidth
+      ..strokeCap = StrokeCap.butt
+      ..filterQuality = FilterQuality.high;
+
+    canvas.drawLine(Offset(0, _startPosition),
+        Offset(value * maxWidth, _startPosition), paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
