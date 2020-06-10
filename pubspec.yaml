@@ -17,7 +17,7 @@ dependencies:
   assets_audio_player:
     git:
       url: git://github.com/preetjdp/Flutter-AssetsAudioPlayer.git
-      ref: Add-Is-Buffering
+      ref: Preet-Custom
   provider: ^4.1.3
   dio: ^3.0.9
   equatable: ^1.2.0

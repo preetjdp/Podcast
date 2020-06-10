@@ -12,8 +12,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: Add-Is-Buffering
-      resolved-ref: "9404a84b6d748879a08c8089837e9ce8885f1d5a"
+      ref: Preet-Custom
+      resolved-ref: d4110afb167a439e52cee737a3804578db7a4eeb
       url: "git://github.com/preetjdp/Flutter-AssetsAudioPlayer.git"
     source: git
     version: "2.0.1+4"
