@@ -37,19 +37,17 @@ class BottomPlayer extends StatelessWidget {
                 painter: DurationPainter(context,
                     value: realTimeInfo.playingPercent),
               ),
-              SizedBox(
-                width: 15,
-              ),
               Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(15),
                   child: !realTimeInfo.isBuffering &&
                           realTimeInfo.current.isNotNull
                       ? Text(realTimeInfo.current.audio.audio.episode.title,
                           style: Theme.of(context).textTheme.subtitle1)
                       : Center(
                           child: PodSpinner(),
-                        )),
-              SizedBox(
-                width: 15,
+                        ),
+                ),
               ),
               CupertinoButton(
                   color: Theme.of(context).accentColor,
