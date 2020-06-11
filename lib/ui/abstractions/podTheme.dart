@@ -9,6 +9,7 @@ class PodDesign {
   double size5 = 18;
   double size6 = 14;
   double size7 = 12;
+  double size8 = 8;
 
   Color podWhite1 = Colors.white;
   Color podWhite2 = Color.fromRGBO(247, 247, 247, 1);
@@ -69,5 +70,16 @@ ThemeData podTheme() {
             fontSize: podDesign.size6,
             fontWeight: FontWeight.normal,
             color: podDesign.podGrey2),
+      ),
+      sliderTheme: SliderThemeData(
+        activeTrackColor: podDesign.podGrey1,
+        inactiveTrackColor: podDesign.podGrey1.withOpacity(0.6),
+        overlayColor: podDesign.podGrey1.withOpacity(0.3),
+        overlayShape: RoundSliderOverlayShape(overlayRadius: podDesign.size7),
+        thumbColor: Colors.white,
+        thumbShape: RoundSliderThumbShape(
+          enabledThumbRadius: podDesign.size8,
+        ),
+        trackHeight: 2,
       ));
 }
