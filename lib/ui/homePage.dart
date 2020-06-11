@@ -50,7 +50,10 @@ class HomePage extends StatelessWidget {
                 ),
         ),
       ),
-      bottomNavigationBar: BottomPlayer(),
+      bottomNavigationBar: MediaQuery.of(context)
+              .isOfTheseTypes([PodDeviceType.MOBILE, PodDeviceType.TABLET])
+          ? BottomPlayer()
+          : SizedBox.shrink(),
     );
   }
 }
