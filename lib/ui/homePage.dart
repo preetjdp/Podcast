@@ -22,15 +22,13 @@ class HomePage extends StatelessWidget {
               : CustomScrollView(
                   physics: BouncingScrollPhysics(),
                   slivers: [
-                    SearchBar(),
-                    // SliverToBoxAdapter(
-                    //   child: Text(
-                    //     "Featured",
-                    //     style: Theme.of(context).textTheme.headline4,
-                    //   ),
-                    // ),
+                    if (MediaQuery.of(context).isOfTheseTypes(
+                        [PodDeviceType.MOBILE, PodDeviceType.TABLET]))
+                      SliverPadding(
+                          padding: EdgeInsets.only(top: 15),
+                          sliver: SearchBar()),
                     SliverPadding(
-                      padding: EdgeInsets.only(bottom: 15),
+                      padding: EdgeInsets.symmetric(vertical: 15),
                       sliver: SliverToBoxAdapter(
                         child: EpisodeWidget(
                           size: EpisodeWidgetSize.LARGE,
@@ -38,12 +36,6 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // SliverToBoxAdapter(
-                    //   child: Text(
-                    //     "For You",
-                    //     style: Theme.of(context).textTheme.headline4,
-                    //   ),
-                    // ),
                     SliverList(
                         delegate: SliverChildBuilderDelegate(
                             (BuildContext context, int index) {
@@ -79,35 +71,32 @@ class SearchBar extends StatelessWidget {
       showSearch(context: context, delegate: PodSearchDelegate(), query: a);
     }
 
-    return SliverPadding(
-      padding: EdgeInsets.only(bottom: 15),
-      sliver: SliverToBoxAdapter(
-          child: CupertinoTextField(
-        onSubmitted: _onSubmitted,
-        autocorrect: false,
-        placeholder: "Search for Podcasts here ...",
-        placeholderStyle: TextStyle(color: context.podDesign.podGrey2),
-        textInputAction: TextInputAction.search,
-        padding: EdgeInsets.all(15),
-        cursorRadius: context.podDesign.podRadius,
-        cursorColor: context.podDesign.podGrey1,
-        decoration: BoxDecoration(
-            color: context.podDesign.podWhite2,
-            borderRadius: BorderRadius.all(context.podDesign.podRadius)),
-        suffix: Container(
-            height: 30,
-            width: 30,
-            margin: EdgeInsets.only(right: 5),
-            decoration: BoxDecoration(
-              color: Theme.of(context).accentColor,
-              borderRadius: BorderRadius.circular(50),
-            ),
-            child: Icon(
-              CupertinoIcons.search,
-              color: Colors.white,
-              size: context.podDesign.size5,
-            )),
-      )),
-    );
+    return SliverToBoxAdapter(
+        child: CupertinoTextField(
+      onSubmitted: _onSubmitted,
+      autocorrect: false,
+      placeholder: "Search for Podcasts here ...",
+      placeholderStyle: TextStyle(color: context.podDesign.podGrey2),
+      textInputAction: TextInputAction.search,
+      padding: EdgeInsets.all(15),
+      cursorRadius: context.podDesign.podRadius,
+      cursorColor: context.podDesign.podGrey1,
+      decoration: BoxDecoration(
+          color: context.podDesign.podWhite2,
+          borderRadius: BorderRadius.all(context.podDesign.podRadius)),
+      suffix: Container(
+          height: 30,
+          width: 30,
+          margin: EdgeInsets.only(right: 5),
+          decoration: BoxDecoration(
+            color: Theme.of(context).accentColor,
+            borderRadius: BorderRadius.circular(50),
+          ),
+          child: Icon(
+            CupertinoIcons.search,
+            color: Colors.white,
+            size: context.podDesign.size5,
+          )),
+    ));
   }
 }
