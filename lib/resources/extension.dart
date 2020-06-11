@@ -10,3 +10,25 @@ extension PlayableUtil on Audio {
 extension PodContext on BuildContext {
   PodDesign get podDesign => PodDesign();
 }
+
+enum PodDeviceType { MOBILE, TABLET, DESKTOP, UNDEFINED }
+
+
+extension PodMediaQuery on MediaQueryData {
+  PodDeviceType get deviceType {
+    double width = this.size.width;
+    if (width >= 0 && width <= 480) {
+      return PodDeviceType.MOBILE;
+    } else if (width > 480 && width <= 800) {
+      return PodDeviceType.TABLET;
+    } else if (width > 800 && width.isFinite) {
+      return PodDeviceType.DESKTOP;
+    } else {
+      return PodDeviceType.UNDEFINED;
+    }
+  }
+  
+  bool isOfTheseTypes(List<PodDeviceType> deviceTypes) {
+     return deviceTypes.contains(this.deviceType); 
+  }
+}
