@@ -3,6 +3,7 @@ import 'package:Podcast/resources/helpers.dart';
 import 'package:Podcast/ui/abstractions/podTheme.dart';
 import 'package:Podcast/ui/components/navigationRail.dart';
 import 'package:Podcast/ui/homePage.dart';
+import 'package:Podcast/ui/mainPlayer.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/cupertino.dart';
@@ -52,7 +53,7 @@ class ResponsiveWrapper extends StatelessWidget {
         Expanded(flex: 2, child: HomePage()),
         if (mediaQuery.isOfTheseTypes([PodDeviceType.DESKTOP]))
           Expanded(
-            child: Container(),
+            child: MainPlayer(),
           )
       ],
     );
