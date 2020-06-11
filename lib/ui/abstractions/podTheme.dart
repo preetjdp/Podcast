@@ -6,10 +6,11 @@ class PodDesign {
   double size2 = 80;
   double size3 = 46;
   double size4 = 36;
-  double size5 = 18;
-  double size6 = 14;
-  double size7 = 12;
-  double size8 = 8;
+  double size5 = 28;
+  double size6 = 18;
+  double size7 = 14;
+  double size8 = 12;
+  double size9 = 8;
 
   Color podWhite1 = Colors.white;
   Color podWhite2 = Color.fromRGBO(247, 247, 247, 1);
@@ -47,27 +48,27 @@ ThemeData podTheme() {
             fontWeight: FontWeight.bold,
             color: podDesign.podGrey2),
         headline5: TextStyle(
-            fontSize: podDesign.size5,
+            fontSize: podDesign.size6,
             fontWeight: FontWeight.w600,
             color: podDesign.podGrey2),
         headline6: TextStyle(
-            fontSize: podDesign.size6,
-            fontWeight: FontWeight.bold,
-            color: podDesign.podGrey2),
-        subtitle1: TextStyle(
-            fontSize: podDesign.size6,
-            fontWeight: FontWeight.w600,
-            color: podDesign.podGrey2),
-        subtitle2: TextStyle(
             fontSize: podDesign.size7,
             fontWeight: FontWeight.bold,
             color: podDesign.podGrey2),
+        subtitle1: TextStyle(
+            fontSize: podDesign.size7,
+            fontWeight: FontWeight.w600,
+            color: podDesign.podGrey2),
+        subtitle2: TextStyle(
+            fontSize: podDesign.size8,
+            fontWeight: FontWeight.bold,
+            color: podDesign.podGrey2),
         bodyText1: TextStyle(
-            fontSize: podDesign.size5,
+            fontSize: podDesign.size6,
             fontWeight: FontWeight.normal,
             color: podDesign.podGrey2),
         bodyText2: TextStyle(
-            fontSize: podDesign.size6,
+            fontSize: podDesign.size7,
             fontWeight: FontWeight.normal,
             color: podDesign.podGrey2),
       ),
@@ -75,10 +76,10 @@ ThemeData podTheme() {
         activeTrackColor: podDesign.podGrey1,
         inactiveTrackColor: podDesign.podGrey1.withOpacity(0.6),
         overlayColor: podDesign.podGrey1.withOpacity(0.3),
-        overlayShape: RoundSliderOverlayShape(overlayRadius: podDesign.size7),
+        overlayShape: RoundSliderOverlayShape(overlayRadius: podDesign.size8),
         thumbColor: Colors.white,
         thumbShape: RoundSliderThumbShape(
-          enabledThumbRadius: podDesign.size8,
+          enabledThumbRadius: podDesign.size9,
         ),
         trackHeight: 2,
       ));

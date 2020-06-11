@@ -98,7 +98,7 @@ class SearchBar extends StatelessWidget {
           child: Icon(
             CupertinoIcons.search,
             color: Colors.white,
-            size: context.podDesign.size5,
+            size: context.podDesign.size6,
           )),
     ));
   }
