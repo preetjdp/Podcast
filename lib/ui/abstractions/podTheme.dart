@@ -61,7 +61,7 @@ ThemeData podTheme() {
             color: podDesign.podGrey2),
         subtitle2: TextStyle(
             fontSize: podDesign.size8,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w600,
             color: podDesign.podGrey2),
         bodyText1: TextStyle(
             fontSize: podDesign.size6,
