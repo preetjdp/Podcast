@@ -27,25 +27,54 @@ class HomePage extends StatelessWidget {
                       SliverPadding(
                           padding: EdgeInsets.only(top: 15),
                           sliver: SearchBar()),
-                    SliverPadding(
-                      padding: EdgeInsets.symmetric(vertical: 15),
-                      sliver: SliverToBoxAdapter(
-                        child: EpisodeWidget(
-                          size: EpisodeWidgetSize.LARGE,
-                          episode: episodes.first,
+                    if (MediaQuery.of(context).deviceType ==
+                        PodDeviceType.MOBILE) ...[
+                      SliverPadding(
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                        sliver: SliverToBoxAdapter(
+                          child: EpisodeWidget(
+                            size: EpisodeWidgetSize.LARGE,
+                            episode: episodes.first,
+                          ),
                         ),
                       ),
-                    ),
-                    SliverList(
-                        delegate: SliverChildBuilderDelegate(
+                      SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                              (BuildContext context, int index) {
+                        Episode episode = episodes.sublist(1).elementAt(index);
+                        return Padding(
+                            padding: EdgeInsets.only(bottom: 15),
+                            child: EpisodeWidget(
+                              episode: episode,
+                            ));
+                      }, childCount: episodes.length - 1))
+                    ],
+                    if (MediaQuery.of(context).isOfTheseTypes(
+                        [PodDeviceType.DESKTOP, PodDeviceType.TABLET]))
+                      SliverPadding(
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                        sliver: SliverGrid(
+                          gridDelegate:
+                              SliverGridDelegateWithMaxCrossAxisExtent(
+                                  maxCrossAxisExtent:
+                                      MediaQuery.of(context).deviceType ==
+                                              PodDeviceType.DESKTOP
+                                          ? 300
+                                          : 200,
+                                  crossAxisSpacing: 15,
+                                  mainAxisSpacing: 15),
+                          delegate: SliverChildBuilderDelegate(
                             (BuildContext context, int index) {
-                      Episode episode = episodes.sublist(1).elementAt(index);
-                      return Padding(
-                          padding: EdgeInsets.only(bottom: 15),
-                          child: EpisodeWidget(
-                            episode: episode,
-                          ));
-                    }, childCount: episodes.length - 1))
+                              Episode episode = episodes.elementAt(index);
+                              return EpisodeWidget(
+                                episode: episode,
+                                size: EpisodeWidgetSize.GIGANTIC,
+                              );
+                            },
+                            childCount: episodes.length,
+                          ),
+                        ),
+                      )
                   ],
                 ),
         ),
