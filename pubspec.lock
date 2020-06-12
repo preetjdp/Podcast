@@ -11,19 +11,17 @@ packages:
   assets_audio_player:
     dependency: "direct main"
     description:
-      path: "."
-      ref: Preet-Custom
-      resolved-ref: b87098ea2800338e9478df71bd7247bec2906b94
-      url: "git://github.com/preetjdp/Flutter-AssetsAudioPlayer.git"
-    source: git
-    version: "2.0.2+1"
+      name: assets_audio_player
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.3+2"
   assets_audio_player_web:
     dependency: transitive
     description:
       name: assets_audio_player_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.2+1"
+    version: "2.0.3+2"
   async:
     dependency: transitive
     description:
