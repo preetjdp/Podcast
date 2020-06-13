@@ -2,6 +2,7 @@ import 'package:Podcast/main.dart';
 import 'package:Podcast/ui/abstractions/podSpinner.dart';
 import 'package:Podcast/ui/abstractions/podTheme.dart';
 import 'package:Podcast/ui/components/podSearchDelegate.dart';
+import 'package:Podcast/ui/mainPlayer.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,57 +14,68 @@ class BottomPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AssetsAudioPlayer player = context.watch<AssetsAudioPlayer>();
-    return Container(
-        color: context.podDesign.podWhite2,
-        height: 80,
-        child: player.builderRealtimePlayingInfos(
-            builder: (BuildContext context, RealtimePlayingInfos realTimeInfo) {
-          // print(realTimeInfo.toString());
-          if (realTimeInfo.isNull)
-            return Center(
-                child: Text("Start By Selecting a Podcast",
-                    style: Theme.of(context).textTheme.subtitle1));
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                  height: 80,
-                  width: 80,
-                  child: realTimeInfo.current.isNotNull
-                      ? Image.network(
-                          realTimeInfo.current.audio.audio.episode.thumbnail)
-                      : Container()),
-              CustomPaint(
-                painter: DurationPainter(context,
-                    value: realTimeInfo.playingPercent),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(15),
-                  child: !realTimeInfo.isBuffering &&
-                          realTimeInfo.current.isNotNull
-                      ? Text(realTimeInfo.current.audio.audio.episode.title,
-                          style: Theme.of(context).textTheme.subtitle1)
-                      : Center(
-                          child: PodSpinner(),
-                        ),
+    void _showMainPlayer() {
+      if (player.realtimePlayingInfos.value.isNotNull)
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (BuildContext context) => MainPlayer()));
+    }
+
+    return CupertinoButton(
+      onPressed: _showMainPlayer,
+      minSize: 0,
+      padding: EdgeInsets.all(0),
+      child: Container(
+          color: context.podDesign.podWhite2,
+          height: 80,
+          child: player.builderRealtimePlayingInfos(builder:
+              (BuildContext context, RealtimePlayingInfos realTimeInfo) {
+            // print(realTimeInfo.toString());
+            if (realTimeInfo.isNull)
+              return Center(
+                  child: Text("Start By Selecting a Podcast",
+                      style: Theme.of(context).textTheme.subtitle1));
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                    height: 80,
+                    width: 80,
+                    child: realTimeInfo.current.isNotNull
+                        ? Image.network(
+                            realTimeInfo.current.audio.audio.episode.thumbnail)
+                        : Container()),
+                CustomPaint(
+                  painter: DurationPainter(context,
+                      value: realTimeInfo.playingPercent),
                 ),
-              ),
-              CupertinoButton(
-                  color: Theme.of(context).accentColor,
-                  borderRadius: BorderRadius.circular(50),
-                  minSize: 20,
-                  padding: EdgeInsets.all(10),
-                  child: realTimeInfo.isPlaying
-                      ? Icon(CupertinoIcons.pause)
-                      : Icon(CupertinoIcons.play_arrow),
-                  onPressed: player.playOrPause),
-              SizedBox(
-                width: 15,
-              ),
-            ],
-          );
-        }));
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(15),
+                    child: !realTimeInfo.isBuffering &&
+                            realTimeInfo.current.isNotNull
+                        ? Text(realTimeInfo.current.audio.audio.episode.title,
+                            style: Theme.of(context).textTheme.subtitle1)
+                        : Center(
+                            child: PodSpinner(),
+                          ),
+                  ),
+                ),
+                CupertinoButton(
+                    color: Theme.of(context).accentColor,
+                    borderRadius: BorderRadius.circular(50),
+                    minSize: 20,
+                    padding: EdgeInsets.all(10),
+                    child: realTimeInfo.isPlaying
+                        ? Icon(CupertinoIcons.pause)
+                        : Icon(CupertinoIcons.play_arrow),
+                    onPressed: player.playOrPause),
+                SizedBox(
+                  width: 15,
+                ),
+              ],
+            );
+          })),
+    );
   }
 }
 

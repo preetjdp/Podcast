@@ -21,7 +21,7 @@ const RESOURCES = {
 "assets/assets/fonts/Aileron/Aileron-UltraLightItalic.otf": "fdf0ea015279a90ff746fb58dec3da11",
 "assets/FontManifest.json": "b92d644d755a9f094609f56b46cedfed",
 "assets/fonts/MaterialIcons-Regular.ttf": "56d3ffdef7a25659eab6a68a3fbfaf16",
-"assets/NOTICES": "9fe92d60f69ca1fe2ade99b236b745d4",
+"assets/NOTICES": "55cac6d77b0f8796c959a880c2833ff3",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "115e937bb829a890521f72d2e664b632",
 "assets/packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf": "5a37ae808cf9f652198acde612b5328d",
 "assets/packages/font_awesome_flutter/lib/fonts/fa-regular-400.ttf": "2bca5ec802e40d3f4b60343e346cedde",
@@ -31,7 +31,7 @@ const RESOURCES = {
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "index.html": "67b15a40ae147393cc7b0eca7a37e953",
 "/": "67b15a40ae147393cc7b0eca7a37e953",
-"main.dart.js": "399d3440c05828326c7ba5e4cf643c2a",
+"main.dart.js": "0159640fbd9170e35865885d5dddfe3f",
 "manifest.json": "4d13c7653cdbe4d3ea6c7387fbecfd7f"
 };
 
@@ -41,7 +41,7 @@ const CORE = [
   "/",
 "main.dart.js",
 "index.html",
-"assets/LICENSE",
+"assets/NOTICES",
 "assets/AssetManifest.json",
 "assets/FontManifest.json"];
 
@@ -170,8 +170,8 @@ async function downloadOffline() {
   }
   for (var resourceKey in Object.keys(RESOURCES)) {
     if (!currentContent[resourceKey]) {
-      resources.add(resourceKey);
+      resources.push(resourceKey);
     }
   }
-  return Cache.addAll(resources);
+  return contentCache.addAll(resources);
 }
