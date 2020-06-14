@@ -7,11 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:Podcast/resources/extension.dart';
 import 'package:provider/provider.dart';
 import 'package:basics/basics.dart';
+import 'dart:math' as math;
 
 class MainPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    PodDesign podDesign = context.podDesign;
     AssetsAudioPlayer player = context.watch<AssetsAudioPlayer>();
     return Scaffold(body: player.builderRealtimePlayingInfos(
         builder: (BuildContext context, RealtimePlayingInfos realTimeInfo) {
@@ -22,7 +22,6 @@ class MainPlayer extends StatelessWidget {
       }
       Playing playing = realTimeInfo.current;
       Episode episode = playing.audio.audio.episode;
-      print(episode.thumbnail + " " + episode.image);
       return Padding(
         padding: EdgeInsets.all(15),
         child: Stack(
@@ -31,23 +30,7 @@ class MainPlayer extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  height: 250,
-                  width: 250,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(podDesign.podRadius),
-                      boxShadow: [
-                        BoxShadow(
-                            blurRadius: 15,
-                            color: podDesign.podGrey2.withOpacity(0.05),
-                            spreadRadius: 0.1)
-                      ]),
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.all(podDesign.podRadius),
-                      child: PodImagePlaceholder.network(url: episode.image)),
-                ),
+                RotatingDisc(),
                 Text(
                   episode.title,
                   style: Theme.of(context).textTheme.headline5,
@@ -99,5 +82,119 @@ class MainPlayer extends StatelessWidget {
         ),
       );
     }));
+  }
+}
+
+class RotatingDisc extends StatefulWidget {
+  @override
+  _RotatingDiscState createState() => _RotatingDiscState();
+}
+
+class _RotatingDiscState extends State<RotatingDisc>
+    with SingleTickerProviderStateMixin {
+  AnimationController rotationController;
+  AssetsAudioPlayer player;
+
+  @override
+  void initState() {
+    super.initState();
+    rotationController = AnimationController(
+        vsync: this,
+        lowerBound: 0,
+        upperBound: 360,
+        duration: Duration(seconds: 15));
+    player = context.read<AssetsAudioPlayer>();
+    player.realtimePlayingInfos.listen((event) {
+      if (event.isNotNull && !event.isBuffering) {
+        if (event.isPlaying) {
+          rotationController.forward();
+        } else {
+          rotationController.stop();
+        }
+      }
+    });
+    rotationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        rotationController.repeat();
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return player.builderRealtimePlayingInfos(
+        builder: (BuildContext context, RealtimePlayingInfos realTimeInfo) {
+      if (realTimeInfo.isNull || realTimeInfo.current.isNull) {
+        return Center(
+          child: Text("Empty"),
+        );
+      }
+      Playing playing = realTimeInfo.current;
+      Episode episode = playing.audio.audio.episode;
+      return AnimatedBuilder(
+        animation: rotationController,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            CustomPaint(
+              size: Size(250, 250),
+              painter: DiscPainter(discs: 15),
+              willChange: false,
+            ),
+            ClipRRect(
+              clipBehavior: Clip.antiAlias,
+              borderRadius: BorderRadius.circular(100),
+              child: Container(
+                height: 80,
+                width: 80,
+                child: PodImagePlaceholder.network(
+                  url: episode.image,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            )
+          ],
+        ),
+        builder: (BuildContext context, Widget child) {
+          return Transform.rotate(
+            angle: (rotationController.value * math.pi) / 180,
+            child: child,
+          );
+        },
+      );
+    });
+  }
+}
+
+class DiscPainter extends CustomPainter {
+  final int discs;
+  DiscPainter({@required this.discs});
+  math.Random random = math.Random();
+  PodDesign podDesign = PodDesign();
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint backgroundPaint = Paint()..color = podDesign.podGrey1;
+    Paint discPainter = Paint()
+      ..strokeWidth = 1
+      ..style = PaintingStyle.stroke
+      ..color = podDesign.podWhite1;
+    Offset center = size.center(Offset(0, 0));
+    double radius = size.height / 2;
+    double imageRadius = 40;
+
+    canvas.drawCircle(center, radius, backgroundPaint);
+
+    double tempRadius = imageRadius;
+    double deltaRadius = (radius - imageRadius) / discs;
+
+    for (int i = 0; i < discs; i++) {
+      canvas.drawCircle(center, tempRadius, discPainter);
+      tempRadius += deltaRadius;
+    }
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
   }
 }
