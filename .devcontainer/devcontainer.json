@@ -1,5 +1,5 @@
 {
-    "name": "Flutter",
+    "name": "Dart",
     "build": {
         "dockerfile": "Dockerfile",
         // Update VARIANT to pick a Dart version
