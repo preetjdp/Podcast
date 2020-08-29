@@ -15,13 +15,13 @@ RUN apt-get update \
     && /bin/bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts
 
-# Add bin location to path
-# ENV PUB_CACHE="/usr/local/share/pub-cache"
-# ENV PATH="${PATH}:${PUB_CACHE}/bin"
-# RUN mkdir -p ${PUB_CACHE} \
-#     && chown ${USERNAME}:root ${PUB_CACHE} \
-#     && echo "if [ \"\$(stat -c '%U' ${PUB_CACHE})\" != \"${USERNAME}\" ]; then sudo chown -R ${USER_UID}:root ${PUB_CACHE}; fi" \
-#     | tee -a /root/.bashrc /root/.zshrc /home/${USERNAME}/.bashrc >> /home/${USERNAME}/.zshrc
+Add bin location to path
+ENV PUB_CACHE="/usr/local/share/pub-cache"
+ENV PATH="${PATH}:${PUB_CACHE}/bin"
+RUN mkdir -p ${PUB_CACHE} \
+    && chown ${USERNAME}:root ${PUB_CACHE} \
+    && echo "if [ \"\$(stat -c '%U' ${PUB_CACHE})\" != \"${USERNAME}\" ]; then sudo chown -R ${USER_UID}:root ${PUB_CACHE}; fi" \
+    | tee -a /root/.bashrc /root/.zshrc /home/${USERNAME}/.bashrc >> /home/${USERNAME}/.zshrc
 
 # Install Flutter
 ENV FLUTTER_PATH="/flutter"
