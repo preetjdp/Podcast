@@ -13,12 +13,13 @@ import 'package:Podcast/ui/abstractions/podTheme.dart';
 import 'package:Podcast/ui/components/navigationRail.dart';
 import 'package:Podcast/ui/homePage.dart';
 import 'package:Podcast/ui/mainPlayer.dart';
+import 'package:hooks_riverpod/all.dart';
 
 void main() {
   // Done with regards to Providers/
   WidgetsFlutterBinding.ensureInitialized();
   configureSystemChrome();
-  runApp(PodcastApp());
+  runApp(ProviderScope(child: PodcastApp()));
 }
 
 class PodcastApp extends StatelessWidget {

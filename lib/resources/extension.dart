@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 
 // Package imports:
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:basics/basics.dart';
 
 // Project imports:
 import 'package:Podcast/resources/models/episode.dart';
@@ -56,5 +57,16 @@ extension ClickableExtensions on Widget {
       opaque: opaque ?? false,
       child: this,
     );
+  }
+}
+
+extension AssetsAudioPlayerExtensions on AssetsAudioPlayer {
+  bool isEpisodePlaying(Episode episode) {
+    Playing playing = this.current.value;
+    if (playing.isNull) {
+      return false;
+    }
+
+    return playing.audio.audio.episode == episode;
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:basics/basics.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
 
 // Project imports:
@@ -13,7 +14,7 @@ import 'package:Podcast/resources/providers.dart';
 import 'package:Podcast/ui/abstractions/podSpinner.dart';
 import 'package:Podcast/ui/mainPlayer.dart';
 
-class BottomPlayer extends StatelessWidget {
+class BottomPlayer extends HookWidget {
   @override
   Widget build(BuildContext context) {
     AssetsAudioPlayer player = useProvider(assetsAudioPlayerProvider);

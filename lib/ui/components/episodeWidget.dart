@@ -25,30 +25,36 @@ class EpisodeWidget extends HookWidget {
       {@required this.episode, this.size = EpisodeWidgetSize.REGULAR});
   @override
   Widget build(BuildContext context) {
-    AssetsAudioPlayer player = useProvider(assetsAudioPlayerProvider);
-    bool isEpisodePlaying() {
-      Playing playing = player.current.value;
-      if (playing.isNull) {
-        return false;
-      }
-
-      return playing.audio.audio.episode == episode;
+    if (size == EpisodeWidgetSize.GIGANTIC) {
+      return _EpisodeWidgetGigantic(
+        episode: episode,
+      ).clickable();
+    } else {
+      return _EpisodeWidgetNormal(
+        episode: episode,
+      );
     }
+  }
+}
+
+class _EpisodeWidgetNormal extends HookWidget {
+  final Episode episode;
+  _EpisodeWidgetNormal({@required this.episode});
+
+  @override
+  Widget build(BuildContext context) {
+    AssetsAudioPlayer player = useProvider(assetsAudioPlayerProvider);
+
+    PodDesign podDesign = context.podDesign;
 
     void _onPressed() async {
-      if (isEpisodePlaying()) {
+      if (player.isEpisodePlaying(episode)) {
         await player.playOrPause();
       } else {
         await player.stop();
         await player.open(episode.audio, showNotification: true);
         await player.play();
       }
-    }
-
-    if (size == EpisodeWidgetSize.GIGANTIC) {
-      return _EpisodeWidgetGigantic(
-        episode: episode,
-      );
     }
 
     return CupertinoButton(
@@ -60,8 +66,8 @@ class EpisodeWidget extends HookWidget {
         child: Row(
           children: [
             Container(
-                height: _getImageSize(size),
-                width: _getImageSize(size),
+                height: _getImageSize(EpisodeWidgetSize.REGULAR),
+                width: _getImageSize(EpisodeWidgetSize.REGULAR),
                 decoration: BoxDecoration(
                     color: podDesign.podWhite1,
                     borderRadius: BorderRadius.all(podDesign.podRadius),
@@ -114,7 +120,7 @@ class EpisodeWidget extends HookWidget {
                   Text(
                     episode.title,
                     style: Theme.of(context).textTheme.headline5,
-                    maxLines: size == EpisodeWidgetSize.REGULAR ? 1 : 2,
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(episode.description,
@@ -141,17 +147,9 @@ class _EpisodeWidgetGigantic extends HookWidget {
     AssetsAudioPlayer player = useProvider(assetsAudioPlayerProvider);
 
     PodDesign podDesign = context.podDesign;
-    bool isEpisodePlaying() {
-      Playing playing = player.current.value;
-      if (playing.isNull) {
-        return false;
-      }
-
-      return playing.audio.audio.episode == episode;
-    }
 
     void _onPressed() async {
-      if (isEpisodePlaying()) {
+      if (player.isEpisodePlaying(episode)) {
         await player.playOrPause();
       } else {
         await player.stop();
