@@ -2,6 +2,7 @@ import 'package:Podcast/resources/models/episode.dart';
 import 'package:Podcast/ui/abstractions/podTheme.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 extension PlayableUtil on Audio {
   Episode get episode => Episode.fromJson(this.metas.extra);
@@ -12,7 +13,6 @@ extension PodContext on BuildContext {
 }
 
 enum PodDeviceType { MOBILE, TABLET, DESKTOP, UNDEFINED }
-
 
 extension PodMediaQuery on MediaQueryData {
   PodDeviceType get deviceType {
@@ -27,8 +27,29 @@ extension PodMediaQuery on MediaQueryData {
       return PodDeviceType.UNDEFINED;
     }
   }
-  
+
   bool isOfTheseTypes(List<PodDeviceType> deviceTypes) {
-     return deviceTypes.contains(this.deviceType); 
+    return deviceTypes.contains(this.deviceType);
+  }
+}
+
+extension ClickableExtensions on Widget {
+  // Widget clickable(void Function() action, {bool opaque = true}) {
+  //   return GestureDetector(
+  //     behavior: opaque ? HitTestBehavior.opaque : HitTestBehavior.deferToChild,
+  //     onTap: action,
+  //     child: MouseRegion(
+  //       cursor: SystemMouseCursors.click,
+  //       opaque: opaque ?? false,
+  //       child: this,
+  //     ),
+  //   );
+  // }
+  Widget clickable({bool opaque = true}) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      opaque: opaque ?? false,
+      child: this,
+    );
   }
 }

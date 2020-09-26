@@ -1,83 +1,87 @@
-import 'package:Podcast/resources/episodeNotifer.dart';
 import 'package:Podcast/resources/models/episode.dart';
+import 'package:Podcast/resources/notifiers/episodesNotifier.dart';
 import 'package:Podcast/ui/abstractions/podSpinner.dart';
 import 'package:Podcast/ui/components/bottomPlayer.dart';
 import 'package:Podcast/ui/components/episodeWidget.dart';
 import 'package:Podcast/ui/components/podSearchDelegate.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:Podcast/resources/extension.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/all.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    List<Episode> episodes = context.watch<EpisodeNotifier>().episodes;
+    AsyncValue<List<Episode>> episodesAsyncValue =
+        useProvider(episodesStateNotifierProvider.state);
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
-          child: episodes.isEmpty
-              ? HomePageEmptyState()
-              : CustomScrollView(
-                  physics: BouncingScrollPhysics(),
-                  slivers: [
-                    if (MediaQuery.of(context).isOfTheseTypes(
-                        [PodDeviceType.MOBILE, PodDeviceType.TABLET]))
-                      SliverPadding(
-                          padding: EdgeInsets.only(top: 15),
-                          sliver: SearchBar()),
-                    if (MediaQuery.of(context).deviceType ==
-                        PodDeviceType.MOBILE) ...[
-                      SliverPadding(
-                        padding: EdgeInsets.symmetric(vertical: 15),
-                        sliver: SliverToBoxAdapter(
-                          child: EpisodeWidget(
-                            size: EpisodeWidgetSize.LARGE,
-                            episode: episodes.first,
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: episodesAsyncValue.when(
+                data: (episodes) => CustomScrollView(
+                      physics: BouncingScrollPhysics(),
+                      slivers: [
+                        if (MediaQuery.of(context).isOfTheseTypes(
+                            [PodDeviceType.MOBILE, PodDeviceType.TABLET]))
+                          SliverPadding(
+                              padding: EdgeInsets.only(top: 15),
+                              sliver: SearchBar()),
+                        if (MediaQuery.of(context).deviceType ==
+                            PodDeviceType.MOBILE) ...[
+                          SliverPadding(
+                            padding: EdgeInsets.symmetric(vertical: 15),
+                            sliver: SliverToBoxAdapter(
+                              child: EpisodeWidget(
+                                size: EpisodeWidgetSize.LARGE,
+                                episode: episodes.first,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                              (BuildContext context, int index) {
-                        Episode episode = episodes.sublist(1).elementAt(index);
-                        return Padding(
-                            padding: EdgeInsets.only(bottom: 15),
-                            child: EpisodeWidget(
-                              episode: episode,
-                            ));
-                      }, childCount: episodes.length - 1))
-                    ],
-                    if (MediaQuery.of(context).isOfTheseTypes(
-                        [PodDeviceType.DESKTOP, PodDeviceType.TABLET]))
-                      SliverPadding(
-                        padding: EdgeInsets.symmetric(vertical: 15),
-                        sliver: SliverGrid(
-                          gridDelegate:
-                              SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent:
-                                      MediaQuery.of(context).deviceType ==
-                                              PodDeviceType.DESKTOP
-                                          ? 300
-                                          : 200,
-                                  crossAxisSpacing: 15,
-                                  mainAxisSpacing: 15),
-                          delegate: SliverChildBuilderDelegate(
-                            (BuildContext context, int index) {
-                              Episode episode = episodes.elementAt(index);
-                              return EpisodeWidget(
-                                episode: episode,
-                                size: EpisodeWidgetSize.GIGANTIC,
-                              );
-                            },
-                            childCount: episodes.length,
-                          ),
-                        ),
-                      )
-                  ],
-                ),
-        ),
+                          SliverList(
+                              delegate: SliverChildBuilderDelegate(
+                                  (BuildContext context, int index) {
+                            Episode episode =
+                                episodes.sublist(1).elementAt(index);
+                            return Padding(
+                                padding: EdgeInsets.only(bottom: 15),
+                                child: EpisodeWidget(
+                                  episode: episode,
+                                ));
+                          }, childCount: episodes.length - 1))
+                        ],
+                        if (MediaQuery.of(context).isOfTheseTypes(
+                            [PodDeviceType.DESKTOP, PodDeviceType.TABLET]))
+                          SliverPadding(
+                            padding: EdgeInsets.symmetric(vertical: 15),
+                            sliver: SliverGrid(
+                              gridDelegate:
+                                  SliverGridDelegateWithMaxCrossAxisExtent(
+                                      maxCrossAxisExtent:
+                                          MediaQuery.of(context).deviceType ==
+                                                  PodDeviceType.DESKTOP
+                                              ? 300
+                                              : 200,
+                                      crossAxisSpacing: 15,
+                                      mainAxisSpacing: 15),
+                              delegate: SliverChildBuilderDelegate(
+                                (BuildContext context, int index) {
+                                  Episode episode = episodes.elementAt(index);
+                                  return EpisodeWidget(
+                                    episode: episode,
+                                    size: EpisodeWidgetSize.GIGANTIC,
+                                  );
+                                },
+                                childCount: episodes.length,
+                              ),
+                            ),
+                          )
+                      ],
+                    ),
+                loading: () => HomePageEmptyState(),
+                //TODO Have a widget for this
+                error: (a, e) => HomePageEmptyState())),
       ),
       bottomNavigationBar: MediaQuery.of(context)
               .isOfTheseTypes([PodDeviceType.MOBILE, PodDeviceType.TABLET])

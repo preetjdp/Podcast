@@ -1,4 +1,3 @@
-import 'package:Podcast/resources/episodeNotifer.dart';
 import 'package:Podcast/resources/helpers.dart';
 import 'package:Podcast/ui/abstractions/podTheme.dart';
 import 'package:Podcast/ui/components/navigationRail.dart';
@@ -7,9 +6,7 @@ import 'package:Podcast/ui/mainPlayer.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:Podcast/resources/extension.dart';
 
 void main() {
@@ -25,20 +22,11 @@ class PodcastApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return DevicePreview(
       enabled: false,
-      builder: (a) => MultiProvider(
-        providers: [
-          Provider.value(value: player),
-          ChangeNotifierProvider(
-            create: (BuildContext context) => EpisodeNotifier(),
-            lazy: false,
-          )
-        ],
-        child: MaterialApp(
-            builder: DevicePreview.appBuilder,
-            theme: podTheme(),
-            title: 'Podcast',
-            home: ResponsiveWrapper()),
-      ),
+      builder: (a) => MaterialApp(
+          builder: DevicePreview.appBuilder,
+          theme: podTheme(),
+          title: 'Podcast',
+          home: ResponsiveWrapper()),
     );
   }
 }
