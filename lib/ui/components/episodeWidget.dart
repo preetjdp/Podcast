@@ -10,7 +10,6 @@ import 'package:hooks_riverpod/all.dart';
 
 // Project imports:
 import 'package:Podcast/resources/extension.dart';
-import 'package:Podcast/resources/extension.dart';
 import 'package:Podcast/resources/models/episode.dart';
 import 'package:Podcast/resources/providers.dart';
 import 'package:Podcast/ui/abstractions/podImagePlaceHolder.dart';

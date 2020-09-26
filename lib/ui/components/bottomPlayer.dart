@@ -8,12 +8,9 @@ import 'package:basics/basics.dart';
 import 'package:hooks_riverpod/all.dart';
 
 // Project imports:
-import 'package:Podcast/main.dart';
 import 'package:Podcast/resources/extension.dart';
 import 'package:Podcast/resources/providers.dart';
 import 'package:Podcast/ui/abstractions/podSpinner.dart';
-import 'package:Podcast/ui/abstractions/podTheme.dart';
-import 'package:Podcast/ui/components/podSearchDelegate.dart';
 import 'package:Podcast/ui/mainPlayer.dart';
 
 class BottomPlayer extends StatelessWidget {
