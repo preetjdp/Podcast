@@ -25,12 +25,12 @@ class MainPlayer extends HookWidget {
         builder: (BuildContext context, RealtimePlayingInfos realTimeInfo) {
       if (realTimeInfo.isNull || realTimeInfo.current.isNull) {
         return Center(
-          child: Text("Nothing is happening"),
+          child: Text("Nothing Is playing"),
         );
       }
       Playing playing = realTimeInfo.current;
       Episode episode = playing.audio.audio.episode;
-      print(episode.thumbnail + " " + episode.image);
+      // print(episode.thumbnail + " " + episode.image);
       return Padding(
         padding: EdgeInsets.all(15),
         child: Stack(
