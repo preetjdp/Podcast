@@ -1,10 +1,15 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:basics/basics.dart';
+import 'package:rxdart/rxdart.dart';
+
+// Project imports:
 import 'package:Podcast/resources/databaseService.dart';
 import 'package:Podcast/resources/models/episode.dart';
 import 'package:Podcast/ui/abstractions/podSpinner.dart';
 import 'package:Podcast/ui/components/episodeWidget.dart';
-import 'package:flutter/material.dart';
-import 'package:rxdart/rxdart.dart';
-import 'package:basics/basics.dart';
 
 class SearchResult {
   final List<Episode> episodes;

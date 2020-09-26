@@ -1,7 +1,10 @@
-import 'package:Podcast/resources/databaseService.dart';
-import 'package:Podcast/resources/models/episode.dart';
+// Package imports:
 import 'package:hooks_riverpod/all.dart';
 import 'package:state_notifier/state_notifier.dart';
+
+// Project imports:
+import 'package:Podcast/resources/databaseService.dart';
+import 'package:Podcast/resources/models/episode.dart';
 
 final episodesStateNotifierProvider =
     StateNotifierProvider((ref) => EpisodesNotifier());

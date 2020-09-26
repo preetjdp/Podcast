@@ -1,6 +1,11 @@
-import 'package:Podcast/resources/models/episode.dart';
-import 'package:dio/dio.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:dio/dio.dart';
+
+// Project imports:
+import 'package:Podcast/resources/models/episode.dart';
 
 const API_URl = "https://listen-api.listennotes.com/api/v2";
 const API_KEY = "9bd2e09bcf93430a8f75163ce394205f";

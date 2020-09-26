@@ -1,8 +1,13 @@
-import 'package:Podcast/resources/models/episode.dart';
-import 'package:Podcast/ui/abstractions/podTheme.dart';
-import 'package:assets_audio_player/assets_audio_player.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
+// Package imports:
+import 'package:assets_audio_player/assets_audio_player.dart';
+
+// Project imports:
+import 'package:Podcast/resources/models/episode.dart';
+import 'package:Podcast/ui/abstractions/podTheme.dart';
 
 extension PlayableUtil on Audio {
   Episode get episode => Episode.fromJson(this.metas.extra);

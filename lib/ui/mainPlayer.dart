@@ -1,14 +1,19 @@
+// Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:basics/basics.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/all.dart';
+
+// Project imports:
+import 'package:Podcast/resources/extension.dart';
 import 'package:Podcast/resources/models/episode.dart';
 import 'package:Podcast/resources/providers.dart';
 import 'package:Podcast/ui/abstractions/podImagePlaceHolder.dart';
 import 'package:Podcast/ui/abstractions/podTheme.dart';
-import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:Podcast/resources/extension.dart';
-import 'package:basics/basics.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/all.dart';
 
 class MainPlayer extends HookWidget {
   @override

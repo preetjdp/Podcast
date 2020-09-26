@@ -1,14 +1,19 @@
+// Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/all.dart';
+
+// Project imports:
+import 'package:Podcast/resources/extension.dart';
 import 'package:Podcast/resources/models/episode.dart';
 import 'package:Podcast/resources/notifiers/episodesNotifier.dart';
 import 'package:Podcast/ui/abstractions/podSpinner.dart';
 import 'package:Podcast/ui/components/bottomPlayer.dart';
 import 'package:Podcast/ui/components/episodeWidget.dart';
 import 'package:Podcast/ui/components/podSearchDelegate.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:Podcast/resources/extension.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/all.dart';
 
 class HomePage extends HookWidget {
   @override
