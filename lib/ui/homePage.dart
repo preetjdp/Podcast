@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:Podcast/ui/abstractions/sliverDivider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +40,7 @@ class HomePage extends HookWidget {
                             padding: EdgeInsets.symmetric(vertical: 15),
                             sliver: SliverToBoxAdapter(
                               child: EpisodeWidget(
-                                size: EpisodeWidgetSize.LARGE,
+                                size: EpisodeWidgetSize.GIGANTIC,
                                 episode: episodes.first,
                               ),
                             ),
