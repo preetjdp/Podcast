@@ -24,6 +24,8 @@ class HomePage extends HookWidget {
         useProvider(episodesStateNotifierProvider.state);
     PodDesign podDesign = PodDesign();
     return Scaffold(
+      // floatingActionButton: FloatingActionButton.extended(
+      //     onPressed: () {}, icon: Icon(Icons.cast), label: Text("Cast")),
       body: SafeArea(
         child: Scrollbar(
           radius: podDesign.podRadius,
