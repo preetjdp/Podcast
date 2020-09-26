@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:Podcast/ui/abstractions/podTheme.dart';
 import 'package:Podcast/ui/abstractions/sliverDivider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +22,12 @@ class HomePage extends HookWidget {
   Widget build(BuildContext context) {
     AsyncValue<List<Episode>> episodesAsyncValue =
         useProvider(episodesStateNotifierProvider.state);
+    PodDesign podDesign = PodDesign();
     return Scaffold(
       body: SafeArea(
-        child: Padding(
+        child: Scrollbar(
+          radius: podDesign.podRadius,
+          child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: episodesAsyncValue.when(
                 data: (episodes) => CustomScrollView(
@@ -87,7 +91,9 @@ class HomePage extends HookWidget {
                     ),
                 loading: () => HomePageEmptyState(),
                 //TODO Have a widget for this
-                error: (a, e) => HomePageEmptyState())),
+                error: (a, e) => HomePageEmptyState()),
+          ),
+        ),
       ),
       bottomNavigationBar: MediaQuery.of(context)
               .isOfTheseTypes([PodDeviceType.MOBILE, PodDeviceType.TABLET])
