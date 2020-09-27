@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:Podcast/resources/providers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,7 @@ import 'package:Podcast/ui/abstractions/podTheme.dart';
 import 'package:Podcast/ui/components/navigationRail.dart';
 import 'package:Podcast/ui/homePage.dart';
 import 'package:Podcast/ui/mainPlayer.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
 
 void main() {
@@ -37,14 +39,25 @@ class PodcastApp extends StatelessWidget {
   }
 }
 
-class ResponsiveWrapper extends StatelessWidget {
+final mainRoutes = <String, WidgetBuilder>{
+  '/': (BuildContext context) => HomePage(),
+  '/homePage': (BuildContext context) => HomePage(),
+};
+
+class ResponsiveWrapper extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    final mainNaviagtorKey = useProvider(mainNavigatorKey);
     MediaQueryData mediaQuery = MediaQuery.of(context);
     return Row(
       children: [
         if (mediaQuery.deviceType == PodDeviceType.DESKTOP) PodNavigationRail(),
-        Expanded(flex: 2, child: HomePage()),
+        Expanded(
+            flex: 2,
+            child: Navigator(
+              key: mainNaviagtorKey,
+              onGenerateRoute: (s) => getRouteFromSetting(mainRoutes, s),
+            )),
         if (mediaQuery.isOfTheseTypes([PodDeviceType.DESKTOP]))
           Expanded(
             child: MainPlayer(),

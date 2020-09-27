@@ -106,12 +106,16 @@ class _NavigationRailTrailing extends HookWidget {
   }
 }
 
-class _NavigationRailLeading extends StatelessWidget {
+class _NavigationRailLeading extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    final mainNaviagtorKey = useProvider(mainNavigatorKey);
+
     PodDesign podDesign = context.podDesign;
     void _onPlayPressed() {
-      showSearch(context: context, delegate: PodSearchDelegate());
+      showSearch(
+          context: mainNaviagtorKey.currentContext,
+          delegate: PodSearchDelegate());
     }
 
     return Padding(
