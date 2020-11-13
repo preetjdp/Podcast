@@ -1,13 +1,20 @@
+// Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:basics/basics.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/all.dart';
+
+// Project imports:
+import 'package:Podcast/resources/extension.dart';
 import 'package:Podcast/resources/models/episode.dart';
+import 'package:Podcast/resources/providers.dart';
 import 'package:Podcast/ui/abstractions/podImagePlaceHolder.dart';
 import 'package:Podcast/ui/abstractions/podTheme.dart';
 import 'package:Podcast/ui/components/podSearchDelegate.dart';
-import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:Podcast/resources/extension.dart';
-import 'package:basics/basics.dart';
 
 class PodNavigationRail extends StatelessWidget {
   @override
@@ -28,10 +35,10 @@ class PodNavigationRail extends StatelessWidget {
   }
 }
 
-class _NavigationRailTrailing extends StatelessWidget {
+class _NavigationRailTrailing extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    AssetsAudioPlayer player = context.watch<AssetsAudioPlayer>();
+    AssetsAudioPlayer player = useProvider(assetsAudioPlayerProvider);
     PodDesign podDesign = context.podDesign;
     void _onPlayPressed() {
       if (player.current.value.isNotNull) {
@@ -99,12 +106,16 @@ class _NavigationRailTrailing extends StatelessWidget {
   }
 }
 
-class _NavigationRailLeading extends StatelessWidget {
+class _NavigationRailLeading extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    final mainNaviagtorKey = useProvider(mainNavigatorKey);
+
     PodDesign podDesign = context.podDesign;
     void _onPlayPressed() {
-      showSearch(context: context, delegate: PodSearchDelegate());
+      showSearch(
+          context: mainNaviagtorKey.currentContext,
+          delegate: PodSearchDelegate());
     }
 
     return Padding(

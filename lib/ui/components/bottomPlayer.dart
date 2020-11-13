@@ -1,19 +1,23 @@
-import 'package:Podcast/main.dart';
-import 'package:Podcast/ui/abstractions/podSpinner.dart';
-import 'package:Podcast/ui/abstractions/podTheme.dart';
-import 'package:Podcast/ui/components/podSearchDelegate.dart';
-import 'package:Podcast/ui/mainPlayer.dart';
-import 'package:assets_audio_player/assets_audio_player.dart';
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:Podcast/resources/extension.dart';
-import 'package:basics/basics.dart';
 
-class BottomPlayer extends StatelessWidget {
+// Package imports:
+import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:basics/basics.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/all.dart';
+
+// Project imports:
+import 'package:Podcast/resources/extension.dart';
+import 'package:Podcast/resources/providers.dart';
+import 'package:Podcast/ui/abstractions/podSpinner.dart';
+import 'package:Podcast/ui/mainPlayer.dart';
+
+class BottomPlayer extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final AssetsAudioPlayer player = context.watch<AssetsAudioPlayer>();
+    AssetsAudioPlayer player = useProvider(assetsAudioPlayerProvider);
     void _showMainPlayer() {
       if (player.realtimePlayingInfos.value.isNotNull)
         Navigator.of(context).push(

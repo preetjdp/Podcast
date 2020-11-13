@@ -1,7 +1,10 @@
-import 'package:Podcast/resources/helpers.dart';
+// Package imports:
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+
+// Project imports:
+import 'package:Podcast/resources/helpers.dart';
 
 class Episode extends Equatable {
   final String id;

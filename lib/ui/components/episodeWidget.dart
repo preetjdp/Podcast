@@ -1,17 +1,23 @@
-import 'package:Podcast/resources/models/episode.dart';
-import 'package:Podcast/ui/abstractions/podTheme.dart';
-import 'package:assets_audio_player/assets_audio_player.dart';
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:Podcast/resources/extension.dart';
+
+// Package imports:
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:basics/basics.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/all.dart';
+
+// Project imports:
 import 'package:Podcast/resources/extension.dart';
+import 'package:Podcast/resources/models/episode.dart';
+import 'package:Podcast/resources/providers.dart';
 import 'package:Podcast/ui/abstractions/podImagePlaceHolder.dart';
+import 'package:Podcast/ui/abstractions/podTheme.dart';
 
 enum EpisodeWidgetSize { GIGANTIC, LARGE, REGULAR, SMALL }
 
-class EpisodeWidget extends StatelessWidget {
+class EpisodeWidget extends HookWidget {
   final EpisodeWidgetSize size;
   final Episode episode;
   final PodDesign podDesign = PodDesign();
@@ -19,30 +25,36 @@ class EpisodeWidget extends StatelessWidget {
       {@required this.episode, this.size = EpisodeWidgetSize.REGULAR});
   @override
   Widget build(BuildContext context) {
-    AssetsAudioPlayer player = context.watch<AssetsAudioPlayer>();
-    bool isEpisodePlaying() {
-      Playing playing = player.current.value;
-      if (playing.isNull) {
-        return false;
-      }
-
-      return playing.audio.audio.episode == episode;
+    if (size == EpisodeWidgetSize.GIGANTIC) {
+      return _EpisodeWidgetGigantic(
+        episode: episode,
+      ).clickable();
+    } else {
+      return _EpisodeWidgetNormal(
+        episode: episode,
+      );
     }
+  }
+}
+
+class _EpisodeWidgetNormal extends HookWidget {
+  final Episode episode;
+  _EpisodeWidgetNormal({@required this.episode});
+
+  @override
+  Widget build(BuildContext context) {
+    AssetsAudioPlayer player = useProvider(assetsAudioPlayerProvider);
+
+    PodDesign podDesign = context.podDesign;
 
     void _onPressed() async {
-      if (isEpisodePlaying()) {
+      if (player.isEpisodePlaying(episode)) {
         await player.playOrPause();
       } else {
         await player.stop();
         await player.open(episode.audio, showNotification: true);
         await player.play();
       }
-    }
-
-    if (size == EpisodeWidgetSize.GIGANTIC) {
-      return _EpisodeWidgetGigantic(
-        episode: episode,
-      );
     }
 
     return CupertinoButton(
@@ -54,8 +66,8 @@ class EpisodeWidget extends StatelessWidget {
         child: Row(
           children: [
             Container(
-                height: _getImageSize(size),
-                width: _getImageSize(size),
+                height: _getImageSize(EpisodeWidgetSize.REGULAR),
+                width: _getImageSize(EpisodeWidgetSize.REGULAR),
                 decoration: BoxDecoration(
                     color: podDesign.podWhite1,
                     borderRadius: BorderRadius.all(podDesign.podRadius),
@@ -108,7 +120,7 @@ class EpisodeWidget extends StatelessWidget {
                   Text(
                     episode.title,
                     style: Theme.of(context).textTheme.headline5,
-                    maxLines: size == EpisodeWidgetSize.REGULAR ? 1 : 2,
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(episode.description,
@@ -127,24 +139,17 @@ class EpisodeWidget extends StatelessWidget {
   }
 }
 
-class _EpisodeWidgetGigantic extends StatelessWidget {
+class _EpisodeWidgetGigantic extends HookWidget {
   final Episode episode;
   _EpisodeWidgetGigantic({@required this.episode});
   @override
   Widget build(BuildContext context) {
-    PodDesign podDesign = context.podDesign;
-    AssetsAudioPlayer player = context.watch<AssetsAudioPlayer>();
-    bool isEpisodePlaying() {
-      Playing playing = player.current.value;
-      if (playing.isNull) {
-        return false;
-      }
+    AssetsAudioPlayer player = useProvider(assetsAudioPlayerProvider);
 
-      return playing.audio.audio.episode == episode;
-    }
+    PodDesign podDesign = context.podDesign;
 
     void _onPressed() async {
-      if (isEpisodePlaying()) {
+      if (player.isEpisodePlaying(episode)) {
         await player.playOrPause();
       } else {
         await player.stop();

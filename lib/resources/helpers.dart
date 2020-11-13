@@ -1,3 +1,4 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:basics/basics.dart';
@@ -7,7 +8,7 @@ void configureSystemChrome() {
       statusBarIconBrightness: Brightness.dark,
       statusBarColor: Colors.transparent,
       // systemNavigationBarColor: Color.fromRGBO(241, 245, 249, 1),
-      systemNavigationBarColor: Colors.white,
+      systemNavigationBarColor: Colors.black,
       systemNavigationBarIconBrightness: Brightness.dark));
 }
 
@@ -43,4 +44,16 @@ String getMonth(int month) {
     "Dec"
   ];
   return monthNames[month - 1];
+}
+
+Route<BuildContext> getRouteFromSetting(
+    Map<String, WidgetBuilder> routes, RouteSettings settings) {
+  final builder = routes[settings.name];
+  if (builder.isNotNull) {
+    return new MaterialPageRoute(
+      settings: settings,
+      builder: builder,
+    );
+  }
+  return null;
 }
