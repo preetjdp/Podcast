@@ -8,7 +8,7 @@ void configureSystemChrome() {
       statusBarIconBrightness: Brightness.dark,
       statusBarColor: Colors.transparent,
       // systemNavigationBarColor: Color.fromRGBO(241, 245, 249, 1),
-      systemNavigationBarColor: Colors.white,
+      systemNavigationBarColor: Colors.black,
       systemNavigationBarIconBrightness: Brightness.dark));
 }
 
