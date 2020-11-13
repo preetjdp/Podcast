@@ -23,7 +23,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   configureSystemChrome();
   runApp(ProviderScope(child: DevicePreview(
-    enabled: false,
+    enabled: true,
     builder: (e) => PodcastApp())));
 }
 
