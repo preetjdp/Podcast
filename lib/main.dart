@@ -1,3 +1,4 @@
+// @dart=2.9
 // Flutter imports:
 import 'package:Podcast/resources/providers.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,21 +22,20 @@ void main() {
   // Done with regards to Providers/
   WidgetsFlutterBinding.ensureInitialized();
   configureSystemChrome();
-  runApp(ProviderScope(child: PodcastApp()));
+  runApp(ProviderScope(child: DevicePreview(
+    enabled: false,
+    builder: (e) => PodcastApp())));
 }
 
 class PodcastApp extends StatelessWidget {
   final AssetsAudioPlayer player = AssetsAudioPlayer.withId('test_player');
   @override
   Widget build(BuildContext context) {
-    return DevicePreview(
-      enabled: false,
-      builder: (a) => MaterialApp(
-          builder: DevicePreview.appBuilder,
-          theme: podTheme(),
-          title: 'Podcast',
-          home: ResponsiveWrapper()),
-    );
+    return MaterialApp(
+      builder: DevicePreview.appBuilder,
+      theme: podTheme(),
+      title: 'Podcast',
+      home: ResponsiveWrapper());
   }
 }
 

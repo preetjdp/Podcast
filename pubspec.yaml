@@ -13,12 +13,17 @@ dependencies:
     sdk: flutter
 
   #[Standard Structure Basics] Start
-  basics: ^0.4.0
+  basics: ^0.4.0+1
   after_layout: ^1.0.7+2
-  cupertino_icons: ^1.0.0
+  cupertino_icons: ^1.0.1
   retry: ^3.0.1
-  device_preview: ^0.4.8
-  flutter_launcher_icons: ^0.8.0
+  device_preview:
+    git:
+      url: git://github.com/josh-burton/flutter_device_preview.git
+      ref: mediaquery-nullok
+      path: device_preview/
+    
+  flutter_launcher_icons: ^0.8.1
   #[Standard Structure Basics] End
   #[Standard Structure State] Start
   rxdart: ^0.24.1
