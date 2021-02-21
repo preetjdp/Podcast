@@ -15,7 +15,7 @@ dependencies:
   #[Standard Structure Basics] Start
   basics: ^0.4.0+1
   after_layout: ^1.0.7+2
-  cupertino_icons: ^1.0.1
+  cupertino_icons: ^1.0.2
   retry: ^3.0.1
   device_preview:
     git:
@@ -26,19 +26,19 @@ dependencies:
   flutter_launcher_icons: ^0.8.1
   #[Standard Structure Basics] End
   #[Standard Structure State] Start
-  rxdart: ^0.24.1
-  state_notifier: ^0.6.0
+  rxdart: ^0.25.0
+  state_notifier: ^0.7.0
   flutter_hooks: ^0.14.0
   hooks_riverpod: ^0.11.0
   #[Standard Structure State] End
   assets_audio_player: ^2.0.10
   dio: ^3.0.10
-  equatable: ^1.2.5
+  equatable: ^1.2.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  import_sorter: ^4.2.1
+  import_sorter: ^4.4.1
 
 dependency_overrides:
   shared_preferences: ^0.5.12
