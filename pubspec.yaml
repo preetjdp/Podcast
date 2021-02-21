@@ -6,7 +6,7 @@ publish_to: "none"
 version: 0.2.0
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.7.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -17,11 +17,7 @@ dependencies:
   after_layout: ^1.0.7+2
   cupertino_icons: ^1.0.2
   retry: ^3.0.1
-  device_preview:
-    git:
-      url: git://github.com/josh-burton/flutter_device_preview.git
-      ref: mediaquery-nullok
-      path: device_preview/
+  device_preview: ^0.6.2-beta
     
   flutter_launcher_icons: ^0.8.1
   #[Standard Structure Basics] End

@@ -25,7 +25,7 @@ RUN apt-get update \
 
 # Install Flutter
 ENV FLUTTER_PATH="/flutter"
-RUN git clone -b master https://github.com/flutter/flutter.git
+RUN git clone -b beta https://github.com/flutter/flutter.git
 ENV PATH="${PATH}:${FLUTTER_PATH}/bin"
 RUN flutter config --enable-web
 RUN flutter doctor
